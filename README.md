@@ -1,4 +1,4 @@
-# adaptive-amd-qwen-router
+# Adaptive Inference on Heterogeneous AMD Hardware: Intelligent Model Routing and NPU Enablement
 Adaptive Inference on Heterogeneous AMD Hardware: Intelligent Model Routing and NPU Enablement is an end-to-end systems engineering framework designed to eliminate single-accelerator bottlenecks in modern large language model (LLM) serving. Conventional inference pipelines route all incoming queries to power-dense discrete GPUs, creating severe resource under-utilization: interactive, batch-1, or short-sequence requests under-occupy wide GPU vector engines, while long-context prefill phases saturate memory bandwidth. Built for heterogeneous AMD environments—such as the AMD Ryzen™ AI Max+ PRO 395 (Strix Halo) integrating both an XDNA 2 Neural Processing Unit (NPU2) and a Radeon 8060S GPU, alongside discrete AMD Instinct™ accelerators—this repository orchestrates intelligent, workload-aware execution across divergent silicon architectures.
 
 The codebase operates in two tightly coupled stages:
