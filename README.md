@@ -1,2 +1,10 @@
 # adaptive-amd-qwen-router
-Adaptive Inference on Heterogeneous AMD Hardware: Intelligent Model Routing and NPU Enablement is an end-to-end systems engineering framework designed to eliminate single-accelerator bottlenecks in modern large language model (LLM) serving.
+Adaptive Inference on Heterogeneous AMD Hardware: Intelligent Model Routing and NPU Enablement is an end-to-end systems engineering framework designed to eliminate single-accelerator bottlenecks in modern large language model (LLM) serving. Conventional inference pipelines route all incoming queries to power-dense discrete GPUs, creating severe resource under-utilization: interactive, batch-1, or short-sequence requests under-occupy wide GPU vector engines, while long-context prefill phases saturate memory bandwidth. Built for heterogeneous AMD environments—such as the AMD Ryzen™ AI Max+ PRO 395 (Strix Halo) integrating both an XDNA 2 Neural Processing Unit (NPU2) and a Radeon 8060S GPU, alongside discrete AMD Instinct™ accelerators—this repository orchestrates intelligent, workload-aware execution across divergent silicon architectures.
+
+The codebase operates in two tightly coupled stages:
+
+Asynchronous Workload Routing Harness: An OpenAI-compatible inference gateway (/v1/chat/completions) that inspects incoming request metadata—including estimated prompt token length, active queue concurrency, and latency Service Level Agreements (SLAs)—to dynamically steer traffic. Short, low-latency, or memory-bound decode requests are dispatched to the low-power NPU backend, while compute-bound prefill passes and long-context queries are routed to ROCm-accelerated GPUs, backed by circuit-breaker timeouts and seamless GPU fallback.
+
+Qwen Model Enablement & NPU Porting: Provides baseline serving configurations for supported Qwen models on ROCm alongside spatial compilation pipelines for porting newer Qwen architectures onto AMD Ryzen AI NPUs via the close-to-metal IRON (mlir-aie) Python API.
+
+Complete with decoupled mock workers for local testing, asynchronous load-testing harnesses measuring Time-to-First-Token (TTFT) and routing overhead, and automated rocprofv3 profiling scripts, this repository delivers a reproducible blueprint for high-efficiency, multi-accelerator AI inference.
